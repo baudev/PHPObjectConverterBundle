@@ -28,7 +28,7 @@ class TypeScriptConverter implements LanguageConverterInterface
      */
     function getAttributeLine(AttributeNode $attributeNode)
     {
-        return '    '.$attributeNode->getCorrespondingAccessibility(). ' ' . $attributeNode->getName().':'. $attributeNode->getCorrespondingType().";\n";
+        return '    '.$attributeNode->getCorrespondingAccessibility(). ' ' . $attributeNode->getName().':'. $attributeNode->getCorrespondingType().";\n\n";
     }
 
     /**
@@ -38,6 +38,9 @@ class TypeScriptConverter implements LanguageConverterInterface
      */
     function getClassLine(ClassNode $classNode = null)
     {
+        if($classNode->getExtends() != null){
+            return "class ". $classNode->getName() ." extends ". $classNode->getExtends()." {\n\n";
+        }
         return "class ". $classNode->getName() ." {\n\n";
     }
 
@@ -49,7 +52,7 @@ class TypeScriptConverter implements LanguageConverterInterface
      */
     function getClassEndLine(ClassNode $classNode = null)
     {
-        return "\n}";
+        return "}";
     }
 
     /**

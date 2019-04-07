@@ -48,6 +48,14 @@ class ClassNode
     }
 
     /**
+     * @return null|string
+     */
+    public function getExtends(): ?string
+    {
+        return $this->extends;
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
