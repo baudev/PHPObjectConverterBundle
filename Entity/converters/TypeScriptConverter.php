@@ -1,8 +1,12 @@
 <?php
 
-namespace Baudev\PHPObjectConverterBundle\Entity\converters;
+namespace Baudev\PHPObjectConverterBundle\Entity\Converters;
 
-use Baudev\PHPObjectConverterBundle\Entity\interfaces\LanguageConverterInterface;
+use Baudev\PHPObjectConverterBundle\Entity\AttributeNode;
+use Baudev\PHPObjectConverterBundle\Entity\ClassNode;
+use Baudev\PHPObjectConverterBundle\Entity\Enums\AccessibilityEnum;
+use Baudev\PHPObjectConverterBundle\Entity\Enums\TypesEnum;
+use Baudev\PHPObjectConverterBundle\Entity\Interfaces\LanguageConverterInterface;
 
 class TypeScriptConverter implements LanguageConverterInterface
 {
@@ -19,40 +23,80 @@ class TypeScriptConverter implements LanguageConverterInterface
 
     /**
      * Returns the corresponding string for an attribute.
-     * @param \Baudev\PHPObjectConverterBundle\Entity\AttributeNode $attributeNode
+     * @param AttributeNode $attributeNode
      * @return string
      */
-    function getAttributeLine(\Baudev\PHPObjectConverterBundle\Entity\AttributeNode $attributeNode)
+    function getAttributeLine(AttributeNode $attributeNode)
     {
-        return 'line';
+        return '    '.$attributeNode->getCorrespondingAccessibility(). ' ' . $attributeNode->getName().':'. $attributeNode->getCorrespondingType().";\n";
     }
 
     /**
      * Returns the corresponding string for a class.
-     * @param \Baudev\PHPObjectConverterBundle\Entity\ClassNode $classNode
+     * @param ClassNode $classNode
      * @return string
      */
-    function getClassLine(\Baudev\PHPObjectConverterBundle\Entity\ClassNode $classNode)
+    function getClassLine(ClassNode $classNode = null)
     {
-        return 'class';
+        return "class ". $classNode->getName() ." {\n\n";
+    }
+
+
+    /**
+     * Returns the line to close the class.
+     * @param ClassNode $classNode
+     * @return mixed
+     */
+    function getClassEndLine(ClassNode $classNode = null)
+    {
+        return "\n}";
     }
 
     /**
-     * Returns the equivalent string for the string PHP type.
+     * Returns the equivalent string for the type passed as parameter.
+     * @param string $typeEnum
      * @return string
+     * @see TypesEnum
      */
-    function getStringType()
+    function getCorrespondingType(string $typeEnum)
     {
-        return 'string';
+        return function ($typeEnum) {
+            switch ($typeEnum) {
+                case TypesEnum::STRING:
+                    return 'string';
+                    break;
+                case TypesEnum::INTEGER:
+                    return 'number';
+                default:
+                    return 'any';
+            }
+        };
     }
 
     /**
-     * Returns the equivalent string for the integer PHP type.
-     * @return string
+     * @param string $accessibilityEnum
+     * @return mixed|string
      */
-    function getIntegerType()
+    public function getCorrespondingAccessibility(string $accessibilityEnum)
     {
-        return 'number';
+        return function ($accessibilityEnum) {
+            switch ($accessibilityEnum) {
+                case AccessibilityEnum::PUBLIC:
+                    return 'public';
+                case AccessibilityEnum::PUBLIC_STATIC:
+                    return 'public static';
+                case AccessibilityEnum::PRIVATE:
+                    return 'private';
+                case AccessibilityEnum::PRIVATE_STATIC:
+                    return 'private static';
+                case AccessibilityEnum::PROTECTED:
+                    return 'protected';
+                case AccessibilityEnum::PROTECTED_STATIC:
+                    return 'protected static';
+                default:
+                    return "public";
+            }
+        };
     }
 
     /**
@@ -63,4 +107,5 @@ class TypeScriptConverter implements LanguageConverterInterface
     {
         return '.ts';
     }
+
 }

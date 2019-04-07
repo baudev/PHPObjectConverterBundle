@@ -1,6 +1,10 @@
 <?php
 
-namespace Baudev\PHPObjectConverterBundle\Entity\interfaces;
+namespace Baudev\PHPObjectConverterBundle\Entity\Interfaces;
+
+use Baudev\PHPObjectConverterBundle\Entity\AttributeNode;
+use Baudev\PHPObjectConverterBundle\Entity\ClassNode;
+use Baudev\PHPObjectConverterBundle\Entity\Enums\AccessibilityEnum;
 
 interface LanguageConverterInterface
 {
@@ -12,30 +16,40 @@ interface LanguageConverterInterface
     function getLanguageName();
 
     /**
-     * Returns the corresponding string for an attribute.
-     * @param \Baudev\PHPObjectConverterBundle\Entity\AttributeNode $attributeNode
-     * @return string
-     */
-    function getAttributeLine(\Baudev\PHPObjectConverterBundle\Entity\AttributeNode $attributeNode);
-
-    /**
      * Returns the corresponding string for a class.
-     * @param \Baudev\PHPObjectConverterBundle\Entity\ClassNode $classNode
+     * @param ClassNode $classNode
      * @return string
      */
-    function getClassLine(\Baudev\PHPObjectConverterBundle\Entity\ClassNode $classNode);
+    function getClassLine(ClassNode $classNode = null);
 
     /**
-     * Returns the equivalent string for the string PHP type.
-     * @return string
+     * Returns the line to close the class.
+     * @param ClassNode $classNode
+     * @return mixed
      */
-    function getStringType();
+    function getClassEndLine(ClassNode $classNode = null);
 
     /**
-     * Returns the equivalent string for the integer PHP type.
+     * Returns the corresponding string for an attribute.
+     * @param AttributeNode $attributeNode
      * @return string
      */
-    function getIntegerType();
+    function getAttributeLine(AttributeNode $attributeNode);
+
+
+    /**
+     * Returns the equivalent string for the type passed as parameter.
+     * @param string $typeEnum
+     * @see TypesEnum
+     */
+    function getCorrespondingType(string $typeEnum);
+
+    /**
+     * Returns the equivalent.
+     * @param string $accessibilityEnum
+     * @see AccessibilityEnum
+     */
+    function getCorrespondingAccessibility(string $accessibilityEnum);
 
     /**
      * Returns the file extension.

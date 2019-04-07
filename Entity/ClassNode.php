@@ -12,14 +12,14 @@ class ClassNode
     /**
      * @var AttributeNode[] The different attributes of the class.
      */
-    public $attributes;
+    private $attributes;
 
     /**
      * @var string|null If the class extends one class, it will be the extended class name.
      */
     private $extends;
 
-    // TODO add interfaces?
+    // TODO add Interfaces?
     // TODO add final, abstract...?
 
     /**
@@ -31,11 +31,52 @@ class ClassNode
     {
         $this->name = $name;
         $this->extends = basename($extends);
+        $this->attributes = array();
     }
 
     public function __toString()
     {
         return 'node'.$this->name;
+    }
+
+    /**
+     * @param string $extends
+     */
+    public function setExtends(string $extends): void
+    {
+        $this->extends = $extends;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return AttributeNode[]
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @param AttributeNode[] $attributes
+     */
+    public function setAttributes(array $attributes): void
+    {
+        $this->attributes = $attributes;
     }
 
     /**
@@ -46,12 +87,5 @@ class ClassNode
         $this->attributes[] = $attributeNode;
     }
 
-    /**
-     * @param string $extends
-     */
-    public function setExtends(string $extends): void
-    {
-        $this->extends = $extends;
-    }
 
 }

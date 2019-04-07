@@ -2,6 +2,8 @@
 
 namespace Baudev\PHPObjectConverterBundle\Entity;
 
+use Baudev\PHPObjectConverterBundle\Entity\Interfaces\LanguageConverterInterface;
+
 class AttributeNode
 {
     /**
@@ -20,6 +22,14 @@ class AttributeNode
     private $accessibility;
 
     /**
+     * Methods which will be executed to transform $type and $accessibility.
+     * @var callable
+     * @see LanguageConverterInterface::getCorrespondingAccessibility()
+     * @see LanguageConverterInterface::getCorrespondingType()
+     */
+    private $correspondingAccessibility, $correspondingType;
+
+    /**
      * AttributeNode constructor.
      * @param string $name
      * @param string $type
@@ -32,11 +42,56 @@ class AttributeNode
         $this->accessibility = $accessibility;
     }
 
-    public function __toString()
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
-        return 'att';
-        // TODO: Implement __toString() method.
+        return $this->name;
     }
+
+    /**
+     * @return string
+     */
+    public function getCorrespondingType(): string
+    {
+        // we use the transformation function
+        if($this->correspondingType !== null){
+            return call_user_func($this->correspondingType, $this->type);
+        }
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCorrespondingAccessibility(): string
+    {
+        // we use the transformation function
+        if($this->correspondingAccessibility !== null){
+            return call_user_func($this->correspondingAccessibility, $this->accessibility);
+        }
+        return $this->accessibility;
+    }
+
+    /**
+     * @param callable $correspondingAccessibility
+     */
+    public function setCorrespondingAccessibility(callable $correspondingAccessibility): void
+    {
+        $this->correspondingAccessibility = $correspondingAccessibility;
+    }
+
+    /**
+     * @param mixed $correspondingType
+     */
+    public function setCorrespondingType(callable $correspondingType): void
+    {
+        $this->correspondingType = $correspondingType;
+    }
+
+
+
 
 
 }
