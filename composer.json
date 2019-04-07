@@ -1,0 +1,22 @@
+{
+    "name": "baudev/php-object-converter-bundle",
+    "description": "This Symfony bundle convert PHP objects into ones of different languages",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "baudev",
+        "email": "baudev.contact@gmail.com"
+      }
+    ],
+    "type": "symfony-bundle",
+    "autoload": {
+      "psr-4": {
+        "Baudev\\PHPObjectConverterBundle\\": ""
+      }
+    },
+    "require": {
+      "php": ">=7.1",
+      "nikic/php-parser": "v4.2.1"
+    }
+}
