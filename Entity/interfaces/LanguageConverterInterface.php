@@ -37,4 +37,10 @@ interface LanguageConverterInterface
      */
     function getIntegerType();
 
+    /**
+     * Returns the file extension.
+     * @return string
+     */
+    function getFileExtension();
+
 }

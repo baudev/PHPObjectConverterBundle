@@ -32,5 +32,11 @@ class AttributeNode
         $this->accessibility = $accessibility;
     }
 
+    public function __toString()
+    {
+        return 'att';
+        // TODO: Implement __toString() method.
+    }
+
 
 }

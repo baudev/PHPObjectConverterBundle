@@ -1,0 +1,11 @@
+services:
+
+
+    php_object_converter.generate_command:
+            class: Baudev\PHPObjectConverterBundle\Command\GenerateCommand
+            public: true
+            arguments:
+              $projectDir: '%kernel.project_dir%'
+            tags:
+                - { name: console.command }
+

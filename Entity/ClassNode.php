@@ -12,10 +12,10 @@ class ClassNode
     /**
      * @var AttributeNode[] The different attributes of the class.
      */
-    private $attributes;
+    public $attributes;
 
     /**
-     * @var string If the class extends one class, it will be the extended class name.
+     * @var string|null If the class extends one class, it will be the extended class name.
      */
     private $extends;
 
@@ -25,13 +25,32 @@ class ClassNode
     /**
      * ClassNode constructor.
      * @param string $name
-     * @param AttributeNode[] $attributes
-     * @param string $extends
+     * @param string|null $extends
      */
-    public function __construct(string $name, array $attributes, string $extends)
+    public function __construct(string $name, ?string $extends)
     {
         $this->name = $name;
-        $this->attributes = $attributes;
+        $this->extends = basename($extends);
+    }
+
+    public function __toString()
+    {
+        return 'node'.$this->name;
+    }
+
+    /**
+     * Adds attribute to the Class
+     * @param AttributeNode $attributeNode
+     */
+    public function addAttribute(AttributeNode $attributeNode){
+        $this->attributes[] = $attributeNode;
+    }
+
+    /**
+     * @param string $extends
+     */
+    public function setExtends(string $extends): void
+    {
         $this->extends = $extends;
     }
 
