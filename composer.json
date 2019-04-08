@@ -1,6 +1,6 @@
 {
     "name": "baudev/php-object-converter-bundle",
-    "description": "This Symfony bundle convert PHP objects into ones of different languages",
+    "description": "This Symfony bundle converts PHP objects into ones of different languages",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [
