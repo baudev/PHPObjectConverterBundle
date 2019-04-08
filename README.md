@@ -119,6 +119,14 @@ class Person extends Kernel
 
 Soon...
 
+## TODO
+
+- [ ] Write **Settings** documentation part.
+- [ ] Write tests.
+- [ ] Support interfaces and methods conversion.
+- [ ] Add more converters.
+
+
 ## Credits
 
 - [PHP Parser](https://github.com/nikic/php-parser)
