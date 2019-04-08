@@ -117,11 +117,26 @@ class Person extends Kernel
 
 ## Settings
 
-Soon...
+Create file `config/packages/php_object_converter.yaml` and define:
+
+```yaml
+php_object_converter:
+    enable_annotation: true # Enables @Converter annotation. See below.
+    ignore_annotation: true # Enables @ConverterIgnore. See below.
+    attributes:
+        add_private: true # Converts private attributes. Ignore them if false.
+        add_protected: true # Converts protected attributes. Ignore them if false.
+```
+
+- If `enable_annotation` is `true`, then only classes with the annotation `@Converter` will be converted.
+
+- If `disable_annotation` is `true`, then classes with `@ConverterIgnore` will be ignored.
+
+
 
 ## TODO
 
-- [ ] Write **Settings** documentation part.
+
 - [ ] Write tests.
 - [ ] Support interfaces and methods conversion.
 - [ ] Add more converters.
